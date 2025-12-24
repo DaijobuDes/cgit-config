@@ -1,0 +1,19 @@
+FROM debian:trixie-slim
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV PORT=62222
+
+RUN apt-get update && apt-get install \
+    cgit fcgiwrap ca-certificates -y \
+    --no-install-recommends && rm -rf /var/lib/apt/lists/*
+
+RUN groupdel 1000 2>/dev/null || true && \
+    userdel 1000 2>/dev/null || true && \
+    groupadd -g 1000 -r git && \
+    useradd -u 1000 -g 1000 -r -d /srv/git -s /usr/sbin/nologin git && \
+    mkdir -p /srv/git && \
+    chown -R 1000:1000 /srv/git
+
+USER git
+
+ENTRYPOINT ["sh", "-c", "exec fcgiwrap -f -s tcp:0.0.0.0:${PORT}"]

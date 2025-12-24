@@ -1,0 +1,25 @@
+services:
+  nginx:
+    image: nginx:alpine3.23
+    volumes:
+      - "./cgit.conf:/etc/nginx/sites-enabled/cgit:ro"
+      - "./nginx.conf:/etc/nginx/nginx.conf:ro"
+      - "cgit-assets:/usr/share/cgit:ro"
+      # Custom image must be 96x64 or 96x96
+      # - "./output.jpg:/usr/share/cgit/cgit.png:ro" # Custom image
+    ports:
+      - 40000:40000
+    depends_on:
+      - cgit
+
+  cgit:
+    build:
+      context: .
+      dockerfile: Dockerfile.cgit
+    volumes:
+      - "./repositories:/srv/git:ro"
+      - "./cgitrc:/etc/cgitrc:ro"
+      - "cgit-assets:/usr/share/cgit"
+
+volumes:
+  cgit-assets:

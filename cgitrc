@@ -1,0 +1,37 @@
+#
+# cgit config
+# see cgitrc(5) for details
+
+# Url which specifies the css document to include in all cgit pages.
+# Default value: "/cgit.css".
+css=/cgit.css
+
+# Url which specifies the source of an image which will be used as a logo on all cgit pages.
+# Default value: "/cgit.png".
+logo=/cgit.png
+
+# A path which will be scanned for repositories. If caching is enabled, the result will be
+# cached as a cgitrc include-file in the cache directory. If project-list has been defined
+# prior to scan-path, scan-path loads only the directories listed in the file pointed to by
+# project-list. Be advised that only the global settings taken before the scan-path directive
+# will be applied to each repository.
+# Default value: none.
+# See also: cache-scanrc-ttl, project-list, "MACRO EXPANSION".
+scan-path=/srv/git/
+
+# Url which, if specified, will be used as root for all cgit links. It will also cause cgit
+# to generate virtual urls, i.e. urls like /cgit/tree/README
+# as opposed to ?r=cgit&p=tree&path=README.
+# Default value: none.
+# NOTE: cgit has recently learned how to use PATH_INFO to achieve the same kind of virtual
+# urls, so this option will probably be deprecated.
+virtual-root=/
+
+# Flag which, when set to "1", will make cgit print an ASCII-art commit history graph
+# to the left of the commit messages in the repository log page.
+# Default value: "0".
+enable-commit-graph=1
+
+# Text printed as heading on the repository index page.
+# Default value: "Git Repository Browser".
+root-title="Furina de Fontaine's Public Repositories"
